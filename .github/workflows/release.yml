@@ -30,14 +30,8 @@ jobs:
           args: release --clean --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          draft: true
-          replace_existing_draft: true
-          replace_existing_artifacts: true
-          target_commitish: "{{ .Commit }}"
-          tag: "{{ .CurrentTag }}"
-          make_latest: true
-          mode: append
-          name_template: "{{.ProjectName}}-v{{.Version}} {{.Env.USER}}"
-          disable: true
-          # Upload metadata.json and artifacts.json to the release as well.
-          include_meta: true
+      - name: Upload assets
+        uses: actions/upload-artifact@v3
+        with:
+          name: blumbot
+          path: dist/*
