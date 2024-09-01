@@ -10,7 +10,7 @@ permissions:
 jobs:
  build:
     name: GoReleaser build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -35,3 +35,19 @@ jobs:
         with:
           name: blumbot
           path: dist/*
+ create-release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Windows build
+        uses: actions/download-artifact@v3
+        with:
+          name: blumbot
+          path: ./dist
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
