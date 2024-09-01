@@ -36,7 +36,7 @@ jobs:
           name: blumbot
           path: dist/*
  create-release:
-    needs: [build]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,5 +49,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: ./dist/*
+          tag: v${{ github.run_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
