@@ -48,7 +48,7 @@ jobs:
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ./dist/blum-bot_*/${{env.ArtifactName}}
+          artifacts: "./dist/{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
           tag: v${{ github.run_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
